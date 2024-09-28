@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Intake Tracker</title>
+    <style>
+        body {
+            background-color: rgb(159, 244, 159);
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: rgba(242, 11, 11, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        h1 {
+            font-size: 2em;
+        }
+        input[type="number"] {
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: none;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: none;
+            background-color: white;
+            color: green;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Water Intake Tracker</h1>
+        <p>Enter the amount of water you have consumed today (in liters):</p>
+        <input type="number" id="waterIntake" placeholder="e.g., 2.5">
+        <button onclick="trackWaterIntake()">Track</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function trackWaterIntake() {
+            var intake = document.getElementById('waterIntake').value;
+            document.getElementById('result').innerText = 'You have consumed ' + intake + ' liters of water today.';
+        }
+    </script>
+</body>
+</html>

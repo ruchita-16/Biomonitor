@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleep Tracker</title>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #00796b;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #004d40 3px solid;
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+            transition: color 0.3s ease-in-out;
+        }
+        header a:hover {
+            color: #b2dfdb;
+        }
+        header ul {
+            padding: 0;
+            list-style: none;
+        }
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+        header #branding {
+            float: left;
+        }
+        header #branding h1 {
+            margin: 0;
+        }
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+        .main-content {
+            padding: 20px;
+            background: #fff;
+            margin-top: 20px;
+            animation: fadeIn 1s ease-in-out;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .main-content h2 {
+            color: #00796b;
+        }
+        .main-content form {
+            margin-top: 20px;
+        }
+        .main-content form label {
+            display: block;
+            margin-bottom: 5px;
+            color: #00796b;
+        }
+        .main-content form input[type="text"],
+        .main-content form input[type="date"],
+        .main-content form input[type="time"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #00796b;
+            border-radius: 5px;
+        }
+        .main-content form input[type="submit"] {
+            padding: 10px 20px;
+            background: #00796b;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+            border-radius: 5px;
+        }
+        .main-content form input[type="submit"]:hover {
+            background: #004d40;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1>Sleep Tracker</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <div class="main-content">
+            <h2>Track Your Sleep</h2>
+            <form>
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date">
+                <label for="sleep-time">Sleep Time:</label>
+                <input type="time" id="sleep-time" name="sleep-time">
+                <label for="wake-time">Wake Time:</label>
+                <input type="time" id="wake-time" name="wake-time">
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

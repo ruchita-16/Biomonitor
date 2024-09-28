@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Intake Tracker</title>
+    <style>
+        body {
+            background-color: rgb(252, 252, 139);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .food-list {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .food-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+        .total-calories {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calorie Intake Tracker</h1>
+        <form id="calorie-form">
+            <input type="text" id="food-item" placeholder="Enter food item" required>
+            <input type="number" id="calories" placeholder="Enter calories" required>
+            <button type="submit">Add</button>
+        </form>
+        <div class="food-list" id="food-list"></div>
+        <div class="total-calories" id="total-calories">Total Calories: 0</div>
+    </div>
+    
+</body>
+</html>
