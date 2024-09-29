@@ -5,29 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sleep Tracker</title>
     <style>
+        /* Keyframes for animation */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
 
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Global styles */
         body {
             font-family: Arial, sans-serif;
             background-color: #e0f7fa;
             margin: 0;
             padding: 0;
+            animation: fadeIn 1s ease-in-out;
         }
+
         .container {
             width: 80%;
             margin: auto;
             overflow: hidden;
         }
+
+        /* Header styles */
         header {
             background: #00796b;
             color: #fff;
             padding-top: 30px;
             min-height: 70px;
             border-bottom: #004d40 3px solid;
+            animation: fadeIn 1s ease-in-out;
         }
+
         header a {
             color: #fff;
             text-decoration: none;
@@ -35,46 +49,70 @@
             font-size: 16px;
             transition: color 0.3s ease-in-out;
         }
+
         header a:hover {
             color: #b2dfdb;
         }
+
         header ul {
             padding: 0;
             list-style: none;
         }
+
         header li {
             float: left;
             display: inline;
-            padding: 0 20px 0 20px;
+            padding: 0 20px;
         }
+
         header #branding {
             float: left;
         }
+
         header #branding h1 {
             margin: 0;
         }
+
         header nav {
             float: right;
             margin-top: 10px;
         }
+
+        /* Main content styles */
         .main-content {
             padding: 20px;
             background: #fff;
             margin-top: 20px;
-            animation: fadeIn 1s ease-in-out;
+            animation: fadeIn 1.5s ease-in-out;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            position: relative;
         }
+
         .main-content h2 {
             color: #00796b;
+            display: flex;
+            align-items: center;
         }
+
+        .main-content h2::before {
+            content: "💤";
+            font-size: 30px;
+            margin-right: 10px;
+            animation: pulse 1.5s infinite;
+        }
+
         .main-content form {
             margin-top: 20px;
         }
+
         .main-content form label {
             display: block;
             margin-bottom: 5px;
             color: #00796b;
+            font-weight: bold;
         }
+
         .main-content form input[type="text"],
         .main-content form input[type="date"],
         .main-content form input[type="time"] {
@@ -84,7 +122,9 @@
             box-sizing: border-box;
             border: 1px solid #00796b;
             border-radius: 5px;
+            font-size: 16px;
         }
+
         .main-content form input[type="submit"] {
             padding: 10px 20px;
             background: #00796b;
@@ -93,10 +133,38 @@
             cursor: pointer;
             transition: background 0.3s ease-in-out;
             border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
         }
+
         .main-content form input[type="submit"]:hover {
             background: #004d40;
         }
+
+        /* Footer section */
+        footer {
+            background: #00796b;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            border-top: 2px solid #004d40;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* Sleep icon floating on top */
+        .sleep-logo {
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            font-size: 60px;
+            animation: pulse 2s infinite;
+        }
+
     </style>
 </head>
 <body>
@@ -114,19 +182,46 @@
             </nav>
         </div>
     </header>
+
     <div class="container">
         <div class="main-content">
+            <span class="sleep-logo">🛌</span> <!-- Added Sleep Logo Icon -->
             <h2>Track Your Sleep</h2>
-            <form>
+            <form id="sleepForm">
                 <label for="date">Date:</label>
-                <input type="date" id="date" name="date">
+                <input type="date" id="date" name="date" required>
+                
                 <label for="sleep-time">Sleep Time:</label>
-                <input type="time" id="sleep-time" name="sleep-time">
+                <input type="time" id="sleep-time" name="sleep-time" required>
+                
                 <label for="wake-time">Wake Time:</label>
-                <input type="time" id="wake-time" name="wake-time">
+                <input type="time" id="wake-time" name="wake-time" required>
+                
                 <input type="submit" value="Submit">
             </form>
         </div>
     </div>
+
+    <footer>
+        <p>Sleep Tracker &copy; 2024 | Improve your sleep today</p>
+    </footer>
+
+    <script>
+        // Form submission handler
+        document.getElementById("sleepForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            const date = document.getElementById("date").value;
+            const sleepTime = document.getElementById("sleep-time").value;
+            const wakeTime = document.getElementById("wake-time").value;
+
+            if (date && sleepTime && wakeTime) {
+                alert("Sleep data recorded successfully 💤! \nDate: " + date + "\nSleep Time: " + sleepTime + "\nWake Time: " + wakeTime);
+                document.getElementById("sleepForm").reset();
+            } else {
+                alert("Please fill out all fields!");
+            }
+        });
+    </script>
 </body>
 </html>
