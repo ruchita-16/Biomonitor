@@ -1,54 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oxygen Level</title>
+    <title>Steps Count</title>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
-            background-color: #ffcccc;
             font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
         }
+
+        .navbar {
+            padding: 1rem 2rem;
+        }
+
         .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: inline-block;
-            max-width: 600px;
+            margin-top: 50px;
+            max-width: 700px;
         }
-        .oxygen-level {
-            font-size: 2em;
-            color: #333;
+
+        .counter {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+            position: relative;
         }
-        .info {
+
+        .counter:hover {
+            box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .counter h2 {
+            color: #343a40;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .counter h2::before {
+            content: "👟";
+            font-size: 30px;
+            margin-right: 10px;
+            animation: bounce 1.5s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .counter input {
+            border-radius: 20px;
+            border: 1px solid #ced4da;
+            padding: 12px;
+            font-size: 16px;
+        }
+
+        .counter button {
+            border-radius: 30px;
+            padding: 10px 25px;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .counter .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+
+        .counter .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .counter .btn-danger {
+            background-color: #dc3545;
+            border: none;
+        }
+
+        .counter .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .counter .btn-success {
+            background-color: #28a745;
+            border: none;
+        }
+
+        .counter .btn-success:hover {
+            background-color: #218838;
+        }
+
+        .stats {
             margin-top: 20px;
-            text-align: left;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
         }
-        .info h2 {
-            font-size: 1.5em;
-            color: #333;
+
+        .stats p {
+            font-size: 18px;
+            margin-bottom: 5px;
         }
-        .info p {
-            font-size: 1em;
-            color: #666;
+
+        .stats span {
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .stats span::before {
+            content: "🏅";
+            font-size: 24px;
+            margin-right: 8px;
+        }
+
+        .motivational-logo {
+            font-size: 50px;
+            position: absolute;
+            top: -20px;
+            right: -20px;
+        }
+
+        #chartContainer {
+            margin-top: 40px;
+            display: none;
+        }
+
+        #stepsChart {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .positive-message {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #007bff;
         }
     </style>
 </head>
+
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Steps Count</a>
+    </nav>
+
     <div class="container">
-        <h1>Oxygen Level</h1>
-        <p class="oxygen-level">98%</p>
-        <div class="info">
-            <h2>What is Oxygen Level?</h2>
-            <p>The oxygen level indicates the percentage of oxygen in your blood. A normal oxygen level typically ranges from 95% to 100%.</p>
-            <h2>Why is it Important?</h2>
-            <p>Maintaining a proper oxygen level is crucial for your body's overall health. Low oxygen levels can lead to serious health issues, including hypoxemia.</p>
-            <h2>How to Improve Oxygen Levels?</h2>
-            <p>To improve your oxygen levels, you can practice deep breathing exercises, stay active, and ensure you are in a well-ventilated environment.</p>
+        <div class="counter text-center">
+            <h2>Step Counter</h2>
+            <span class="motivational-logo">🚀</span> <!-- Motivational acknowledgment logo -->
+
+            <input type="number" id="stepInput" class="form-control" placeholder="Enter steps count"
+                style="max-width: 200px; margin: 0 auto;" />
+            <button class="btn btn-primary" onclick="addSteps()">Add Steps</button>
+            <button class="btn btn-danger" onclick="resetCounter()">Reset</button>
+
+            <div class="stats mt-4">
+                <p>Total Steps: <span id="totalSteps">0</span></p>
+                <p>Best Count: <span id="bestSteps">0</span></p>
+            </div>
+
+            <button class="btn btn-success" onclick="showChart()">Show Chart</button>
+
+            <div class="positive-message" id="positiveMessage">Keep going! You're doing great! 👍</div>
+        </div>
+
+        <div id="chartContainer">
+            <canvas id="stepsChart" width="400" height="200"></canvas>
         </div>
     </div>
+
+    <script>
+        let totalSteps = 0;
+        let bestSteps = 0;
+        let stepData = [];
+
+        function addSteps() {
+            const steps = parseInt(document.getElementById('stepInput').value);
+            if (isNaN(steps) || steps <= 0) {
+                alert("Please enter a valid number of steps.");
+                return;
+            }
+            totalSteps += steps;
+            if (steps > bestSteps) {
+                bestSteps = steps;
+            }
+            stepData.push(steps);
+            updateUI();
+
+            // Show positive messages based on total steps
+            const positiveMessage = document.getElementById('positiveMessage');
+            if (totalSteps >= 10000) {
+                positiveMessage.innerText = "Amazing! You've hit 10k steps! 💪";
+            } else if (totalSteps >= 5000) {
+                positiveMessage.innerText = "Halfway there! Keep going! 🏃‍♂️";
+            } else {
+                positiveMessage.innerText = "Keep going! You're doing great! 👍";
+            }
+        }
+
+        function resetCounter() {
+            totalSteps = 0;
+            bestSteps = 0;
+            stepData = [];
+            updateUI();
+            document.getElementById('positiveMessage').innerText = "Let's get started again! 🌟";
+        }
+
+        function updateUI() {
+            document.getElementById('totalSteps').innerText = totalSteps;
+            document.getElementById('bestSteps').innerText = bestSteps;
+            document.getElementById('stepInput').value = '';
+        }
+
+        function showChart() {
+            document.getElementById('chartContainer').style.display = 'block';
+            const ctx = document.getElementById('stepsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: stepData.map((_, index) => 'Step ' + (index + 1)),
+                    datasets: [{
+                        label: 'Steps',
+                        data: stepData,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+    </script>
 </body>
+
 </html>
