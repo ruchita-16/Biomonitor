@@ -181,7 +181,7 @@
                 recommendation = 'You are overweight. Reduce your calorie intake and walk at least 12000 steps daily.';
             }
 
-            document.getElementById('bmiResult').innerText = Your BMI is: ${bmi};
+            document.getElementById('bmiResult').innerText = `Your BMI is: ${bmi}`;
             document.getElementById('bmiRecommendation').innerText = recommendation;
         });
 
@@ -193,7 +193,7 @@
             // Simulate an AI query for calorie intake from the food description
             const aiCaloriesEstimate = await askAIForCalorieEstimate(foodInput); // Replace with AI call in real system
             totalCalories = aiCaloriesEstimate;  // Storing the calories for later use
-            document.getElementById('calorieResult').innerText = Estimated calorie intake: ${aiCaloriesEstimate} kcal;
+            document.getElementById('calorieResult').innerText = `Estimated calorie intake: ${aiCaloriesEstimate} kcal`;
         });
 
         // Simulate an AI call for calories (replace this with real AI integration)
@@ -215,7 +215,7 @@
 
             totalSteps = steps; // Storing total steps for later use
             caloriesBurned = totalBurned; // Storing calories burned for later use
-            document.getElementById('stepResult').innerText = Total calories burned: ${totalBurned} kcal;
+            document.getElementById('stepResult').innerText = `Total calories burned: ${totalBurned} kcal`;
         });
 
         // Sleep Recommendation
